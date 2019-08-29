@@ -1,10 +1,10 @@
 const { getIdFromRequest } = require('../utils/common.utils');
-const { findAllUsers, findOneUser, createUser, removeOneUser, updateUser } = require('../services/user.service');
+const { findAllDetails, findOneDetail, createDetail, removeOneDetail, updateDetail } = require('../services/detail.service');
 
 const findAll = async (req, res) => {
   try {
-    const users = await findAllUsers(req.query);
-    res.json(users).status(200);
+    const details = await findAllDetails(req.query);
+    res.json(details).status(200);
   } catch (e) {
     res.status(500).send(e.message);
   }
@@ -14,8 +14,8 @@ const findOne = async (req, res) => {
   const id = getIdFromRequest(req);
 
   try {
-    const user = await findOneUser(id);
-    res.json(user).status(200);
+    const detail = await findOneDetail(id);
+    res.json(detail).status(200);
   } catch (e) {
     res.status(500).send(e.message);
   }
@@ -23,8 +23,8 @@ const findOne = async (req, res) => {
 
 const create = async (req, res) => {
   try {
-    const user = await createUser(req.body);
-    res.json(user).status(200);
+    const detail = await createDetail(req.body);
+    res.json(detail).status(200);
   } catch (e) {
     res.status(500).send(e.message);
   }
@@ -34,8 +34,8 @@ const update = async (req, res) => {
   const id = getIdFromRequest(req);
 
   try {
-    const user = await updateUser(id, req.body);
-    res.json(user).status(200);
+    const detail = await updateDetail(id, req.body);
+    res.json(detail).status(200);
   } catch (e) {
     res.status(500).send(e.message);
   }
@@ -45,8 +45,8 @@ const remove = async (req, res) => {
   const id = getIdFromRequest(req);
 
   try {
-    const user = await removeOneUser(id);
-    res.json(user).status(200);
+    const detail = await removeOneDetail(id);
+    res.json(detail).status(200);
   } catch (e) {
     res.status(500).send(e.message);
   }

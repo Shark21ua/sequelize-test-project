@@ -1,9 +1,25 @@
 const express = require('express');
-const { createUser, getAllUsers } = require('./routers/users.router');
+const bodyParser = require('body-parser');
+const passport = require('passport');
+const router = require('./routers');
+const auth = require('./bin/auth');
+const cookieParser = require('cookie-parser');
+const cookieSession = require('cookie-session');
 
 const app = express();
 
-app.get('/users', getAllUsers);
-app.post('/users', createUser);
+app.use(bodyParser.json());
 
-app.listen(3000, () => { console.log('App listening on port 3000') });
+auth(passport);
+app.use(passport.initialize());
+
+app.use(cookieSession({
+  name: 'session',
+  keys: ['SECRET KEY'],
+  maxAge: 24 * 60 * 60 * 1000
+}));
+app.use(cookieParser());
+
+app.use('/', router);
+
+module.exports = app;
